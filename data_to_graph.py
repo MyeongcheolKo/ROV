@@ -7,6 +7,7 @@ def cast_to_float(input_list):
 
 with open('data.csv', newline='') as csvfile:
     data = csv.reader(csvfile)
+    next(data)
     i = 0
     x = []
     y = []
