@@ -1,0 +1,36 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.animation as animation
+
+# Define the dataset
+years = np.arange(2016, 2026)
+data = [
+    [0, 0, 0, 0, 0],  # 2016
+    [1, 0, 0, 0, 0],  # 2017
+    [1, 0, 0, 0, 0],  # 2018
+    [1, 0, 0, 0, 0],  # 2019
+    [1, 1, 1, 0, 0],  # 2020
+    [1, 1, 1, 0, 0],  # 2021
+    [1, 1, 1, 0, 0],  # 2022
+    [1, 1, 1, 1, 0],  # 2023
+    [1, 1, 1, 1, 0],  # 2024
+    [1, 1, 1, 1, 0],  # 2025
+]
+
+df = pd.DataFrame(data, index=years, columns=["Region 1", "Region 2", "Region 3", "Region 4", "Region 5"])
+# Set up the figure and axis
+fig, ax = plt.subplots(figsize=(6, 4))
+
+def update(year_index):
+    ax.clear()
+    sns.heatmap(df.iloc[:year_index+1], cmap="Reds", linewidths=0.5, annot=True, cbar=False, ax=ax)
+    ax.set_title(f"Invasive Carp Spread Over Time - Year {years[year_index]}")
+    ax.set_xlabel("Regions")
+    ax.set_ylabel("Year")
+
+# Create animation
+ani = animation.FuncAnimation(fig, update, frames=len(years), interval=1000, repeat=False)
+
+plt.show()
